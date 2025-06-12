@@ -20,6 +20,7 @@
         <input type="number" id="entrada" min="1" max="100" />
         <button onclick="adivinar()">Adivinar</button>
         <p id="mensaje"></p>
+        <p id="numeroSecreto"></p>
     </div>
     <div id="historial" style="display: block;">
         <h3>Historial de la partida:</h3>
@@ -43,6 +44,12 @@
             document.getElementById('mensaje').textContent = '';
             document.getElementById('entrada').value = '';
             document.getElementById('entrada').focus();
+            if(numeroSecreto % 2 === 0) {
+                document.getElementById('numeroSecreto').textContent = `Número secreto: ${numeroSecreto} y es par.`;
+            } else {
+                document.getElementById('numeroSecreto').textContent = `Número secreto: ${numeroSecreto} y es impar.`;
+            }
+            
         }
 
         function adivinar() {
