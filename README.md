@@ -12,6 +12,9 @@ Este programa es un juego donde se tiene que adivinar el numero secreto ingresan
 # Instrucciones de uso (Lee con atencion)
 
 1._ Presione el boton de comenzar para iniciar el juego
-2._ Ingresa un numero para adivinar el numero secreto
+
+2._ Ingresa un numero para adivinar el numero secreto 
+
 3._ Lee el mensaje del programa para verificar si el numero ingresado es mas alto o mas bajo que el numero secreto
+
 4._ Repita el paso 2 y 3 hasta adivinar el numero secreto
