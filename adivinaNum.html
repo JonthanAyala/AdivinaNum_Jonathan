@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Adivina el Número</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; }
+        #juego, #historial { display: none; }
+        .historial-item { margin-bottom: 3px; }
+    </style>
+</head>
+<body>
+    <h1>Adivina el Número</h1>
+    <div id="menu">
+        <button onclick="iniciarJuego()">Jugar</button>
+        <button onclick="salir()">Salir</button>
+    </div>
+    <div id="juego">
+        <p>He pensado un número entre 1 y 100. ¡Adivínalo!</p>
+        <input type="number" id="entrada" min="1" max="100" />
+        <button onclick="adivinar()">Adivinar</button>
+        <p id="mensaje"></p>
+    </div>
+    <div id="historial" style="display: block;">
+        <h3>Historial de la partida:</h3>
+        <div id="listaHistorial"></div>
+    </div>
+    <div id="volverMenu" style="display: none;">
+        <button onclick="volverMenu()">Volver al menú</button>
+    </div>
+
+    <script>
+        let numeroSecreto = 0;
+        let intentos = 0;
+        let historial = [];
+
+        function iniciarJuego() {
+            numeroSecreto = Math.floor(Math.random() * 100) + 1;
+            intentos = 0;
+            historial = [];
+            document.getElementById('menu').style.display = 'none';
+            document.getElementById('juego').style.display = 'block';
+            document.getElementById('mensaje').textContent = '';
+            document.getElementById('entrada').value = '';
+            document.getElementById('entrada').focus();
+        }
+
+        function adivinar() {
+            const entrada = document.getElementById('entrada');
+            const valor = parseInt(entrada.value, 10);
+            if (isNaN(valor) || valor < 1 || valor > 100) {
+                document.getElementById('mensaje').textContent = 'Por favor, ingresa un número válido entre 1 y 100.';
+                return;
+            }
+            intentos++;
+            let resultado = '';
+            if (valor < numeroSecreto) {
+                resultado = `${valor} es menor que el número secreto.`;
+                document.getElementById('mensaje').textContent = 'Demasiado bajo.';
+            } else if (valor > numeroSecreto) {
+                resultado = `${valor} es mayor que el número secreto.`;
+                document.getElementById('mensaje').textContent = 'Demasiado alto.';
+            } else {
+                resultado = `${valor} es correcto. ¡Felicidades!`;
+                document.getElementById('mensaje').textContent = `Adivinaste en ${intentos} intentos.`;
+                MenuBottom();
+                return;
+            }
+            entrada.value = '';
+            entrada.focus();
+            mostrarHistorial(resultado);
+        }
+
+        function mostrarHistorial(result) {
+            const lista = document.getElementById('listaHistorial');
+            //agregar cada intento al html sin limpiarlo
+            lista.innerHTML += `<div class="historial-item">${result}</div>`;
+        }
+        function limpiarHistorial() {
+            const lista = document.getElementById('listaHistorial');
+            lista.innerHTML = '';
+            historial = [];
+            intentos = 0;
+        }
+
+        function MenuBottom(){
+            document.getElementById('volverMenu').style.display = 'block';
+        }
+
+        function volverMenu() {
+            limpiarHistorial();
+            document.getElementById('menu').style.display = 'block';
+            document.getElementById('juego').style.display = 'none';            
+        }
+
+        function salir() {
+            document.body.innerHTML = '<h2>¡Hasta luego!</h2>';
+        }
+    </script>
+</body>
+</html>
